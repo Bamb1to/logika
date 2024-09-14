@@ -47,8 +47,6 @@ def show_winner():
 btn.clicked.connect(show_winner)
 
 
-
-
 window.show()
 app.exec_()
 
