@@ -8,7 +8,22 @@ window.setWindowTitle("Memory Card")# назва вікна
 window.resize(500, 500)# ЗМІНИТИ РОЗМІР ВІКНА
 window.move(200,200)# ПОЛОЖЕННЯ ВІКНА
 
-menu_btn = QPushButton("Меню")
+window.setStyleSheet('''
+background: #7a302b;
+font-size: 25px;
+color: white;                                          
+''')
+
+menu_btn = QPushButton("Статистика")
+
+btn_style = '''
+background: #7a302b;
+font-size: 20px;
+color: #260e2e;
+border; 2px solid #D52A73;
+'''
+
+
 rest_btn = QPushButton("Відпочити")
 time_box = QSpinBox()
 time_label = QLabel("хвилин")

@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout, QMessageBox
 
 from random import shuffle, choice
 
@@ -8,6 +8,9 @@ app = QApplication([])
 from window import *
 
 class Question:
+    crorrect_counter = 0
+    total_counter = 0
+
     def __init__(self, text, right_answer, ans1, ans2, ans3):
         self.text = text
         self.right_answer = right_answer
@@ -24,15 +27,21 @@ class Question:
         answer_text.setText(self.right_answer)
 
     def check_answer(self):
+        radio_group.setExclusive(False)
+        Question.total_counter+=1
+
         for answer in [btn1, btn2, btn3, btn4]:
             if answer.isChecked():
+                answer.setChecked(False)
                 if answer.text() == self.right_answer:
                     result_text.setText("Правильно")
+                    Question.total_counter+=1
                     break
                 else:
                     result_text.setTExt("Неправильно")
                     break
 
+        radio_group.setExclusive(False)
 
 questions = [
     Question("клавіатура", "keyboard", "keys", "klaviatura", "computer board"),
@@ -62,8 +71,20 @@ def switch_screen():
         group_box.show()
         answer_btn.setText('Відповісти')
 
+def show_stat():
+    stat_win = QMessageBox()
+    stat_win.setIcon(QMessageBox.Information)    
+    stat_win.setWindowTitle("Статистика")   
+    try:
+        accaracy = Question.crorrect_counter / Question.total_counter * 100
+        stat_win.setText(f'Кількість відповідей: {Question.total_counter} \nКількість відповідей : {Question.crorrect_counter}\nКількість відповідей: {accaracy}')
+    except:
+        stat_win.setText("Дайте хоча б одну відповідь для підрахунку статистики")
+    stat_win.exec()
+
 next_question()
 answer_btn.clicked.connect(switch_screen)
+menu_btn.clicked.connect(show_stat)
 
 window.show()
-app.exec_()
+app.exec_()          
