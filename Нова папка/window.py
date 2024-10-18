@@ -18,15 +18,18 @@ menu_btn = QPushButton("Статистика")
 
 btn_style = '''
 background: #7a302b;
-font-size: 20px;
-color: #260e2e;
-border; 2px solid #D52A73;
+font-size: 25px;
+color: white;
+border: 2px solid #D52A73;
+padding: 10px;
+border-radius: 20px;
 '''
-
+menu_btn.setStyleSheet(btn_style)
 
 rest_btn = QPushButton("Відпочити")
+rest_btn.setStyleSheet(btn_style)
 time_box = QSpinBox()
-time_label = QLabel("хвилин")
+time_label = QLabel("Хвилин")
 
 row1 = QHBoxLayout()
 row1.addWidget(menu_btn)
@@ -50,6 +53,15 @@ radio_group.addButton(btn3)
 radio_group.addButton(btn4)
 
 group_box = QGroupBox("Bаріанти перекладу")
+box_style = '''
+background: #7a302b;
+font-size: 15px;
+color: white;
+border: 2px solid #D52A73;
+padding: 10px;
+border-radius: 20px;
+'''
+group_box.setStyleSheet(box_style)
 
 col1 = QVBoxLayout()
 col2 = QVBoxLayout()
@@ -68,7 +80,7 @@ group_box.setLayout(row2)
 
 result_box = QGroupBox("Результат")
 result_text = QLabel("Правильно")#Результат: Правильно/Неправильно
-answer_text = QLabel("миша")# Правильна відповідь
+answer_text = QLabel("Миша")# Правильна відповідь
 
 result_col = QVBoxLayout()
 result_col.addWidget(result_text)
@@ -78,6 +90,7 @@ result_box.setLayout(result_col)
 result_box.hide()
 
 answer_btn = QPushButton("Відповісти")
+answer_btn.setStyleSheet(btn_style)
 
 # Додаємо всі віджети на головну напрямну лінію
 main_line = QVBoxLayout()

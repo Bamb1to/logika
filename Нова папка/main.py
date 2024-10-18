@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout, QMessageBox
 
 from random import shuffle, choice
-
+from time import sleep
 app = QApplication([])
 
 from window import *
@@ -35,13 +35,13 @@ class Question:
                 answer.setChecked(False)
                 if answer.text() == self.right_answer:
                     result_text.setText("Правильно")
-                    Question.total_counter+=1
+                    Question.crorrect_counter+=1
                     break
                 else:
-                    result_text.setTExt("Неправильно")
+                    result_text.setText("Неправильно")
                     break
 
-        radio_group.setExclusive(False)
+        radio_group.setExclusive(True)
 
 questions = [
     Question("клавіатура", "keyboard", "keys", "klaviatura", "computer board"),
@@ -77,14 +77,21 @@ def show_stat():
     stat_win.setWindowTitle("Статистика")   
     try:
         accaracy = Question.crorrect_counter / Question.total_counter * 100
-        stat_win.setText(f'Кількість відповідей: {Question.total_counter} \nКількість відповідей : {Question.crorrect_counter}\nКількість відповідей: {accaracy}')
+        stat_win.setText(f'Кількість відповідей: {Question.total_counter} \nПравильні відповіді : {Question.crorrect_counter}\nТочність відповідей: {accaracy}')
     except:
         stat_win.setText("Дайте хоча б одну відповідь для підрахунку статистики")
     stat_win.exec()
 
+def rest():
+    pause_time = int(time_box.value()) * 60               
+    window.hide()
+    sleep(pause_time)
+    window.show()
+
 next_question()
 answer_btn.clicked.connect(switch_screen)
 menu_btn.clicked.connect(show_stat)
+rest_btn.clicked.connect(rest)
 
 window.show()
 app.exec_()          
