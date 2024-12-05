@@ -4,6 +4,8 @@ from ui import Ui_MainWindow
 from qt_material import apply_stylesheet
 import json
 
+from datetime import datetime
+
 
 
 class SmartNotes(QMainWindow):
@@ -18,6 +20,8 @@ class SmartNotes(QMainWindow):
         self.ui.save_btn.clicked.connect(self.save_note)
         self.ui.new_note.clicked.connect(self.new_note)
         self.ui.delete_btn.clicked.connect(self.del_note)
+        self.ui.pushButton.clicked.connect(self.search_note)
+        self.ui.search_line.textChanged.connect(self.search_note)
         
 
 
@@ -47,13 +51,14 @@ class SmartNotes(QMainWindow):
         self.name = "Нова нотатка" 
 
     def del_note(self):
-        self.name = self.ui.notes_list.selectedItems()[0].text()
-        if self.notes[self.name]:
+        if self.name in self.notes:
             del self.notes[self.name]
 
-        with open("notes.json", 'w', encoding="utf-8") as file:
-            json.dump(self.notes, file, ensure_ascii=False)
-        self.load_notes()        
+            with open("notes.json", 'w', encoding="utf-8") as file:
+                json.dump(self.notes, file, ensure_ascii=False)
+
+            self.load_notes()    
+
         self.new_note()
 
     def save_note(self):
@@ -68,6 +73,9 @@ class SmartNotes(QMainWindow):
             else:
                 self.notes[self.name]["text"] = self.ui.note_text.toPlainText()
 
+            now = datetime.now().strftime('%d.%m.%Y %H:%M:%S')    
+            self.notes[self.name]['datetime'] = now
+
             with open("notes.json", 'w', encoding="utf-8") as file:
                 json.dump(self.notes,file, ensure_ascii=False)
 
@@ -79,7 +87,21 @@ class SmartNotes(QMainWindow):
             error_msg.setIcon(QMessageBox.Warning)
             error_msg.exec()
 
+    def search_note(self):    
+        search = self.ui.search_line.text().strip().lower()    
+        result = {}
+        if search != '':
+            title_list = self.notes.keys()
+            for title in title_list:
+                if search in title.lower():
+                    result[title] = self.notes[title]       
+            self.ui.notes_list.clear()  
+            self.ui.notes_list.addItems(result) 
+        else: 
+            self.ui.notes_list.clear() 
+            self.ui.notes_list.addItems(self.notes)   
 
+               
 
 
 
