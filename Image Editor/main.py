@@ -1,10 +1,18 @@
 from PIL import Image, ImageFilter, ImageEnhance
+from PyQt5 import QtWidgets, uic
+import sys
+
+class Ui(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Ui, self).__init__()
+        uic.loadUi('untitled.ui', self)
 
 class ImageEditor():
     def __init__(self):
         self.image = None
         self.origina = None
         self.save_path = 'edited/'
+        self.ui = Ui()
 
     def open(self, filename):
         self.image = Image.open(filename)
@@ -23,14 +31,9 @@ class ImageEditor():
     def sharpen(self):
         self.image = self.image.filter(ImageFilter.SHARPEN) #чіткість   
 
-            
-
         
+app = QApplication([])
+editor = ImageEditor()
+apply_stylesheet(app, theme='light_red.xml')
 
 editor = ImageEditor() 
-editor.open('erik-mclean-3Z3NGXT1Vy4-unsplash.jpg')  
-# editor.do_black_white()  
-# editor.do_blur()
-# editor.rotate_90()
-editor.sharpen()
-editor.image.save('result.png')
