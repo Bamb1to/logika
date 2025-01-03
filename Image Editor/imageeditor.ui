@@ -18,7 +18,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="folder_btn">
         <property name="maximumSize">
          <size>
           <width>300</width>
@@ -35,7 +35,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidget">
+       <widget class="QListWidget" name="image_list">
         <property name="minimumSize">
          <size>
           <width>300</width>
@@ -68,7 +68,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="save_btn">
           <property name="text">
            <string>Зберегти</string>
           </property>
@@ -150,9 +150,9 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="action_4"/>
-    <addaction name="action_12"/>
+    <addaction name="open_folder"/>
+    <addaction name="open_file"/>
+    <addaction name="save"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -166,7 +166,7 @@
      <string>Ефекти</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="action_6"/>
+    <addaction name="black_white"/>
     <addaction name="action_9"/>
    </widget>
    <widget class="QMenu" name="menu_4">
@@ -194,17 +194,17 @@
     <string>Скинути</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="open_folder">
    <property name="text">
     <string>Відкрити папку</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="open_file">
    <property name="text">
     <string>Відкрити файл</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="black_white">
    <property name="text">
     <string>Чорно Біле</string>
    </property>
@@ -234,7 +234,7 @@
     <string>Розмиття</string>
    </property>
   </action>
-  <action name="action_12">
+  <action name="save">
    <property name="text">
     <string>Зберегти</string>
    </property>
