@@ -57,7 +57,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="pushButton_6">
+         <widget class="QPushButton" name="del_btn">
           <property name="text">
            <string>Видалити</string>
           </property>
@@ -79,9 +79,16 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="back_btn">
           <property name="text">
-           <string>Скасувати</string>
+           <string>Назад</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="forward_btn">
+          <property name="text">
+           <string>Вперед</string>
           </property>
          </widget>
         </item>
@@ -99,14 +106,14 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_5">
+         <widget class="QPushButton" name="rotate_left">
           <property name="text">
            <string>Поворот Л</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="rotate_right">
           <property name="text">
            <string>Поворот Р</string>
           </property>
@@ -174,8 +181,8 @@
      <string>Корекція</string>
     </property>
     <addaction name="action_13"/>
-    <addaction name="action_14"/>
-    <addaction name="action_15"/>
+    <addaction name="sharpen"/>
+    <addaction name="blur"/>
     <addaction name="action_16"/>
    </widget>
    <addaction name="menu"/>
@@ -244,12 +251,12 @@
     <string>Контрасність</string>
    </property>
   </action>
-  <action name="action_14">
+  <action name="sharpen">
    <property name="text">
     <string>Різкість</string>
    </property>
   </action>
-  <action name="action_15">
+  <action name="blur">
    <property name="text">
     <string>Розмиття</string>
    </property>
