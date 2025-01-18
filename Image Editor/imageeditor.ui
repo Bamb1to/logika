@@ -174,7 +174,7 @@
     </property>
     <addaction name="separator"/>
     <addaction name="black_white"/>
-    <addaction name="action_9"/>
+    <addaction name="brightnes"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
@@ -226,7 +226,7 @@
     <string>Різкість</string>
    </property>
   </action>
-  <action name="action_9">
+  <action name="brightnes">
    <property name="text">
     <string>Яскравість</string>
    </property>

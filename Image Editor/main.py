@@ -8,13 +8,37 @@ import os
 import tempfile
 
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QListWidgetItem, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QListWidgetItem, QFileDialog, QDialog, QVBoxLayout, QSlider, QHBoxLayout, QPushButton
 from qt_material import apply_stylesheet
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__()
         uic.loadUi('imageeditor.ui', self)
+
+class SliderDialog(QDialog):  
+    def __init__(self, title, value=100):
+        super().__init__()
+        self.setWindowTitle(title)
+
+        self.layout = QVBoxLayout()
+        self.slider = QSlider(Qt.Horizontal)  
+        self.slider.setMinimum(0)  
+        self.slider.setMaximum(200)
+        self.slider.setValue(value)
+
+        self.btns = QHBoxLayout()
+        self.ok = QPushButton('OK')
+        self.cancel = QPushButton('Скасувати')
+        self.btns.addWidget(self.ok)
+        self.btns.addWidget(self.cancel)
+
+        self.layout.addWidget(self.slider)
+        self.layout.addLayout(self.btns)
+
+        self.setLayout(self.layout)
+        self.ok.clicked.connect(self.accept)
+        self.cancel.clicked.connect(self.reject)
 
 class ImageEditor():
     def __init__(self):
@@ -51,6 +75,7 @@ class ImageEditor():
         self.ui.sharpen.triggered.connect(self.sharpen)
         self.ui.back_btn.clicked.connect(self.back)
         self.ui.forward_btn.clicked.connect(self.forward)
+        self.ui.brightnes.triggered.connect(self.brightness_dialog)
         
     def get_images(self):
         self.folder_images = []
@@ -167,9 +192,22 @@ class ImageEditor():
             self.add_history()
             self.show_image(self.temp_save())
 
-    
+    def do_bightness(self, value):
+        if self.image:    
+            value = value / 100 
+            enhancer = ImageEnhance.Brightness(self.history[self.history_index])  
+            self.image = enhancer.enhance(value)
+            self.show_image(self.temp_save()) 
 
-        
+    def brightness_dialog(self):
+        if self.image:   
+
+            dialog = SliderDialog('Редагування яскравості')    
+            dialog.slider.valueChanged.connect(lambda value: self.do_bightness(value))
+
+            dialog.exec_()
+
+     
 app = QApplication([])
 editor = ImageEditor()
 apply_stylesheet(app, theme='light_red.xml')
