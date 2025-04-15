@@ -83,9 +83,24 @@ class Player(BaseSprite):
             self.rect.y -= self.speed
         if keys[K_s]:
             self.rect.y += self.speed
-        
-        
 
+class Enemy(BaseSprite):  
+    def __init__(self, image, x, y, width, height):
+        super().__init__(image, x, y, width, height)  
+        self.original_image = self.image
+        
+        self.speed = 3 
+        self.dir_list = ['left', 'right', 'up', 'down']
+        self.dir = random.choice(self.dir_list)
+
+    def update(self):
+        old_pos = self.rect.x, self.rect.y           
+        
+enemy1 = Enemy(enemy_img,700, 100, 40, 80)
+
+enemy2 = Enemy(enemy_img,700, 100, 40, 80)
+
+player = Player(player_img, 100, 100, 40, 80) 
 
 run = True
 while run:
