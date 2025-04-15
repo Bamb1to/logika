@@ -4,11 +4,11 @@ import random
 init()
 font.init()
 mixer.init()
-mixer.music.load('space.ogg')
+mixer.music.load('f1.mp3')
 mixer.music.set_volume(0.1)
 # mixer.music.play(loops=-1)
 
-fire_sound = mixer.Sound('laser5.wav')
+fire_sound = mixer.Sound('signal car.mp3')
 fire_sound.set_volume(0.5)
 
 FONT = 'Play-Regular.ttf'
@@ -16,18 +16,18 @@ FONT = 'Play-Regular.ttf'
 FPS = 60
 
 scr_info = display.Info()
-WIDTH, HEIGHT = scr_info.current_w,  scr_info.current_h
+WIDTH, HEIGHT = 900,  900
 
 #створи вікно гри
-window = display.set_mode((WIDTH,HEIGHT), flags=FULLSCREEN)
-display.set_caption("Space Shooter")
+window = display.set_mode((WIDTH,HEIGHT))
+display.set_caption("Gonki 2D")
 clock = time.Clock()
 #задай фон сцени
-bg = image.load("background.jpg")
+bg = image.load("map for gonki.png")
 bg = transform.scale(bg, (WIDTH,HEIGHT))
 
-player_img = image.load("spaceship.png")
-enemy_img = image.load("alien.png")
+player_img = image.load("red bull car.png")
+enemy_img = image.load("orange car.png")
 
 all_sprites = sprite.Group()
 
