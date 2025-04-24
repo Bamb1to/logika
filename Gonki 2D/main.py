@@ -24,6 +24,7 @@ display.set_caption("Gonki 2D")
 clock = time.Clock()
 #задай фон сцени
 bg = image.load("map for gonki.png")
+map = image.load("map.png")
 bg = transform.scale(bg, (WIDTH,HEIGHT))
 
 player_img = image.load("red bull car.png")
@@ -94,13 +95,13 @@ class Enemy(BaseSprite):
         self.dir = random.choice(self.dir_list)
 
     def update(self):
-        old_pos = self.rect.x, self.rect.y           
+        old_pos = self.rect.x, self.rect.y     
+
+map = BaseSprite(map, 0, 0, WIDTH, HEIGHT)      
         
-enemy1 = Enemy(enemy_img,700, 100, 40, 80)
+enemy1 = Enemy(enemy_img,132, 10, 40, 80)
 
-enemy2 = Enemy(enemy_img,700, 100, 40, 80)
-
-player = Player(player_img, 100, 100, 40, 80) 
+player = Player(player_img, 87, 165, 40, 80) 
 
 run = True
 while run:
