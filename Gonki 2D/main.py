@@ -1,5 +1,6 @@
 from pygame import *
 import random 
+import math
 
 init()
 font.init()
@@ -65,25 +66,37 @@ class Player(BaseSprite):
         super().__init__(image, x, y, width, height)
         self.right_image = self.image
         self.left_image = transform.flip(self.image, True, False)
-        self.speed = 5
+        self.speed = 0
         self.hp = 100
         self.coins_counter= 0
         self.damage_timer = time.get_ticks() #фіксуємо чая від початку гри в мілісекундах
-
+        self.angle = 0
     
     def update(self):
         old_pos = self.rect.x, self.rect.y
         keys = key.get_pressed()
-        if keys[K_a] and self.rect.x > 0:
-            self.rect.x -= self.speed
-            self.image = self.left_image
+        if keys[K_a]:
+            self.angle += 3
         if keys[K_d]:
-            self.rect.x += self.speed
-            self.image = self.right_image
+            self.angle -= 3
         if keys[K_w]:
-            self.rect.y -= self.speed
-        if keys[K_s]:
-            self.rect.y += self.speed
+            self.speed = min(self.speed -0.2, 10)
+        elif keys[K_s]:
+            self.speed = max(self.speed +0.2, -10)
+        else:
+            if self.speed > 0:
+                self.speed -= 0.1
+            else:
+                self.speed += 0.1    
+
+        rad = math.radians(self.angle)
+        dx = -self.speed * math.sin(rad)
+        dy = -self.speed * math.cos(rad)
+        self.rect.x += dx
+        self.rect.y += dy
+
+        self.image = transform.rotate(self.right_image, self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
 
 class Enemy(BaseSprite):  
     def __init__(self, image, x, y, width, height):
@@ -99,9 +112,9 @@ class Enemy(BaseSprite):
 
 map = BaseSprite(map, 0, 0, WIDTH, HEIGHT)      
         
-enemy1 = Enemy(enemy_img,132, 10, 40, 80)
+enemy1 = Enemy(enemy_img,132, 10, 30, 60)
 
-player = Player(player_img, 87, 165, 40, 80) 
+player = Player(player_img, 87, 165, 30, 60) 
 
 run = True
 while run:
@@ -113,6 +126,7 @@ while run:
                 run = False
 
     window.blit(bg, (0,0))
+    player.update()
     all_sprites.draw(window)
     all_labels.draw(window)
   
